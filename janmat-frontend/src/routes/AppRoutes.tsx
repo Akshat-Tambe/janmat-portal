@@ -6,10 +6,12 @@ import Register from "../pages/auth/Register";
 import ForgotPassword from "../pages/auth/ForgotPassword";
 import NotFound from "../pages/notFound/NotFound";
 import DefaultToTest from "../pages/DefaultToTest";
+import Landing from "../pages/landing/LandingPage";
 
 const AppRoutes = () => {
   const routes = useRoutes([
-    { path: "/", element: <DefaultToTest /> },
+    { path: "/", element: <Landing /> },
+    { path: "/default", element: <DefaultToTest /> },
     { path: "/login", element: <Login /> },
     { path: "/register", element: <Register /> },
     { path: "/forgot-password", element: <ForgotPassword /> },
