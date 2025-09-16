@@ -1,5 +1,5 @@
 import React from "react";
-import { Loader2 } from "lucide-react"; // spinner icon
+import { Loader2 } from "lucide-react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "danger" | "info" | "success";
@@ -9,17 +9,22 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const sizes: Record<NonNullable<ButtonProps["size"]>, string> = {
-  sm: "px-3 py-1 text-sm",
-  md: "px-4 py-2 text-base",
-  lg: "px-6 py-3 text-lg",
+  sm: "px-4 py-1.5 text-sm",
+  md: "px-6 py-2 text-base",
+  lg: "px-8 py-3 text-lg",
 };
 
 const variants: Record<NonNullable<ButtonProps["variant"]>, string> = {
-  primary: "bg-blue-500 text-white hover:bg-blue-600 focus:ring-blue-400",
-  secondary: "bg-gray-500 text-white hover:bg-gray-600 focus:ring-gray-400",
-  danger: "bg-red-500 text-white hover:bg-red-600 focus:ring-red-400",
-  info: "bg-teal-500 text-white hover:bg-teal-600 focus:ring-teal-400",
-  success: "bg-green-500 text-white hover:bg-green-600 focus:ring-green-400",
+  primary:
+    "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 shadow-lg hover:shadow-purple-500/40 focus:ring-purple-400",
+  secondary:
+    "bg-white/10 text-gray-200 hover:bg-white/20 backdrop-blur-md border border-white/20 focus:ring-gray-400",
+  danger:
+    "bg-gradient-to-r from-red-500 to-pink-500 text-white hover:from-red-600 hover:to-pink-600 shadow-lg hover:shadow-red-500/40 focus:ring-red-400",
+  info:
+    "bg-gradient-to-r from-cyan-400 to-blue-500 text-white hover:from-cyan-500 hover:to-blue-600 shadow-lg hover:shadow-cyan-400/40 focus:ring-cyan-400",
+  success:
+    "bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 shadow-lg hover:shadow-green-500/40 focus:ring-green-400",
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -32,7 +37,7 @@ const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const base =
-    "inline-flex items-center justify-center rounded-full font-semibold transition-all duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed";
+    "inline-flex items-center justify-center rounded-full font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed";
 
   return (
     <button

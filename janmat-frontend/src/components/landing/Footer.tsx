@@ -1,59 +1,118 @@
 // src/components/landing/Footer.tsx
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Facebook, Twitter, Linkedin, Mail } from "lucide-react";
+import Dialog from "../common/Dialog";
+import Privacy from "../common/Privacy"
+import Terms from "../common/Terms"
+import { Link } from "react-router-dom";
+
 
 const Footer: React.FC = () => {
-  return (
-    <footer className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black text-gray-300 py-12 px-6 overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 via-indigo-600/10 to-transparent opacity-40"></div>
+    const floatingCircles = Array.from({ length: 12 });
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        className="relative max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6"
-      >
-        {/* Branding */}
-        <p className="text-sm text-gray-400">
-          © {new Date().getFullYear()}{" "}
-          <span className="font-semibold text-white">VoteSecure</span>. All
-          rights reserved.
-        </p>
+    // Dialog state
+    const [openPrivacy, setOpenPrivacy] = useState(false);
+    const [openTerms, setOpenTerms] = useState(false);
 
-        {/* Navigation Links */}
-        <div className="flex gap-6 text-sm">
-          {["About", "Contact", "Privacy Policy", "Terms"].map((link) => (
-            <a
-              key={link}
-              href={`/${link.toLowerCase().replace(/\s+/g, "")}`}
-              className="relative group"
+    return (
+        <footer className="relative bg-transparent text-gray-300 py-16 px-6 overflow-hidden">
+            {/* Animated Background Circles */}
+            {floatingCircles.map((_, i) => (
+                <motion.div
+                    key={i}
+                    animate={{
+                        y: [0, -15, 0],
+                        x: [0, 15, 0],
+                        opacity: [0.2, 0.5, 0.2],
+                    }}
+                    transition={{
+                        duration: 6 + Math.random() * 4,
+                        repeat: Infinity,
+                        delay: Math.random() * 3,
+                        ease: "easeInOut",
+                    }}
+                    className="absolute rounded-full bg-gradient-to-r from-blue-500/20 via-indigo-500/20 to-purple-500/20"
+                    style={{
+                        width: `${Math.random() * 60 + 40}px`,
+                        height: `${Math.random() * 60 + 40}px`,
+                        top: `${Math.random() * 100}%`,
+                        left: `${Math.random() * 100}%`,
+                        zIndex: 0,
+                    }}
+                />
+            ))}
+
+            {/* Footer Content */}
+            <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+                viewport={{ once: true }}
+                className="relative z-10 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6"
             >
-              <span className="text-gray-400 group-hover:text-white transition">
-                {link}
-              </span>
-              <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gradient-to-r from-blue-500 to-indigo-500 group-hover:w-full transition-all"></span>
-            </a>
-          ))}
-        </div>
+                {/* Branding */}
+                <p className="text-sm text-gray-400 text-center md:text-left">
+                    © {new Date().getFullYear()}{" "}
+                    <span className="font-semibold text-white">Jan-Mat</span>. All rights reserved.
+                </p>
 
-        {/* Social Media Icons */}
-        <div className="flex gap-5">
-          {[Facebook, Twitter, Linkedin, Mail].map((Icon, i) => (
-            <a
-              key={i}
-              href="#"
-              className="p-2 rounded-full bg-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 text-gray-400 hover:text-white shadow-md transition-all"
-            >
-              <Icon size={18} />
-            </a>
-          ))}
-        </div>
-      </motion.div>
-    </footer>
-  );
+                {/* Navigation Links */}
+                <div className="flex flex-wrap justify-center md:justify-start gap-6 text-sm">
+                    <a href="#about" className="relative group">
+                        <span className="text-gray-400 group-hover:text-white transition">About</span>
+                        <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gradient-to-r from-blue-500 to-indigo-500 group-hover:w-full transition-all"></span>
+                    </a>
+                    <Link to="/contact" className="relative group">
+                        <span className="text-gray-400 group-hover:text-white transition">Contact</span>
+                        <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gradient-to-r from-blue-500 to-indigo-500 group-hover:w-full transition-all"></span>
+                    </Link>
+
+                    {/* Privacy Policy -> Dialog */}
+                    <button onClick={() => setOpenPrivacy(true)} className="relative group">
+                        <span className="text-gray-400 group-hover:text-white transition">Privacy Policy</span>
+                        <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gradient-to-r from-blue-500 to-indigo-500 group-hover:w-full transition-all"></span>
+                    </button>
+
+                    {/* Terms -> Dialog */}
+                    <button onClick={() => setOpenTerms(true)} className="relative group">
+                        <span className="text-gray-400 group-hover:text-white transition">Terms</span>
+                        <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gradient-to-r from-blue-500 to-indigo-500 group-hover:w-full transition-all"></span>
+                    </button>
+                </div>
+
+                {/* Social Media Icons */}
+                <div className="flex gap-5 mt-4 md:mt-0">
+                    {[Facebook, Twitter, Linkedin, Mail].map((Icon, i) => (
+                        <motion.a
+                            key={i}
+                            href="#"
+                            whileHover={{ scale: 1.2, rotate: 10 }}
+                            className="p-3 rounded-full bg-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 text-gray-400 hover:text-white shadow-lg transition-all"
+                        >
+                            <Icon size={20} />
+                        </motion.a>
+                    ))}
+                </div>
+            </motion.div>
+
+            {/* Dialogs */}
+            <Dialog
+                open={openPrivacy}
+                onClose={() => setOpenPrivacy(false)}
+                title="Privacy Policy"
+                content={<Privacy />}
+                containsCheckbox
+            />
+            <Dialog
+                open={openTerms}
+                onClose={() => setOpenTerms(false)}
+                title="Terms of Service"
+                content={<Terms />}
+                containsCheckbox
+            />
+        </footer>
+    );
 };
 
 export default Footer;

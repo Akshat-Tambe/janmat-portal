@@ -8,21 +8,13 @@ const Hero: React.FC = () => {
   return (
     <section
       id="home"
-      className="relative bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-24 px-6 text-center overflow-hidden"
-    >
-      {/* Decorative background blobs with floating animation */}
-      <motion.div
-        animate={{ y: [0, 20, 0] }}
-        transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-        className="absolute -top-32 -right-32 w-96 h-96 bg-blue-200 rounded-full blur-3xl opacity-40"
-      ></motion.div>
-      <motion.div
-        animate={{ y: [0, -20, 0] }}
-        transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
-        className="absolute -bottom-32 -left-32 w-96 h-96 bg-indigo-200 rounded-full blur-3xl opacity-40"
-      ></motion.div>
+      className="relative min-h-screen md:h-screen flex items-center justify-center px-6 text-center overflow-hidden bg-transparent"
 
-      {/* Content */}
+    >
+      {/* Decorative floating blobs */}
+
+
+      {/* Hero Content */}
       <motion.div
         initial="hidden"
         animate="visible"
@@ -36,30 +28,26 @@ const Hero: React.FC = () => {
         <motion.img
           src={logo}
           alt="Voting Logo"
-          className="w-24 mx-auto mb-6 drop-shadow-md"
+          className="w-28 mx-auto mb-6 drop-shadow-2xl"
           variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1 } }}
         />
 
         {/* Headline */}
         <motion.h1
           variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-          className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-6"
+          className="text-4xl md:text-6xl font-extrabold leading-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400"
         >
-          Secure{" "}
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
-            Online Voting
-          </span>{" "}
-          Platform
+          Secure <span className="text-white">Online Voting</span> Platform
         </motion.h1>
 
         {/* Subtext */}
         <motion.p
           variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-          className="text-lg md:text-xl text-gray-600 mb-8"
+          className="text-lg md:text-xl text-gray-200 mb-8"
         >
           Cast your vote from anywhere — with complete{" "}
-          <span className="font-semibold text-gray-800">security, transparency,</span> and{" "}
-          <span className="font-semibold text-gray-800">trust.</span>
+          <span className="font-semibold text-white">security, transparency,</span> and{" "}
+          <span className="font-semibold text-white">trust.</span>
         </motion.p>
 
         {/* CTA Buttons */}
@@ -69,14 +57,14 @@ const Hero: React.FC = () => {
         >
           <Button
             onClick={() => (window.location.href = "/register")}
-            className="px-6 py-3 text-lg rounded-xl shadow-lg hover:scale-105 hover:shadow-2xl transition-transform duration-300"
+            className="px-6 py-3 text-lg rounded-xl shadow-2xl hover:scale-105 hover:shadow-3xl transition-transform duration-300"
           >
             Get Started
           </Button>
           <Button
             variant="secondary"
             onClick={() => (window.location.href = "/login")}
-            className="px-6 py-3 text-lg rounded-xl shadow-lg hover:scale-105 hover:shadow-2xl transition-transform duration-300"
+            className="px-6 py-3 text-lg rounded-xl shadow-2xl hover:scale-105 hover:shadow-3xl transition-transform duration-300"
           >
             Login
           </Button>

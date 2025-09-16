@@ -7,10 +7,12 @@ import ForgotPassword from "../pages/auth/ForgotPassword";
 import NotFound from "../pages/notFound/NotFound";
 import DefaultToTest from "../pages/DefaultToTest";
 import Landing from "../pages/landing/LandingPage";
+import AboutDevelopers from "../components/landing/AboutDevs";
 
 const AppRoutes = () => {
   const routes = useRoutes([
     { path: "/", element: <Landing /> },
+    { path: "/contact", element: <AboutDevelopers /> },
     { path: "/default", element: <DefaultToTest /> },
     { path: "/login", element: <Login /> },
     { path: "/register", element: <Register /> },
