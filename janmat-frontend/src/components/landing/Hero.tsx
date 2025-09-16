@@ -28,7 +28,7 @@ const Hero: React.FC = () => {
         <motion.img
           src={logo}
           alt="Voting Logo"
-          className="w-28 mx-auto mb-6 drop-shadow-2xl"
+          className="w-48 mx-auto mb-6 drop-shadow-2xl"
           variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1 } }}
         />
 

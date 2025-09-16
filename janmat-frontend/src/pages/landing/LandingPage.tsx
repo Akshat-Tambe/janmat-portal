@@ -10,8 +10,12 @@ import { motion } from "framer-motion";
 
 const Landing: React.FC = () => {
   useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
     window.scrollTo(0, 0);
   }, []);
+
 
   return (
     <>

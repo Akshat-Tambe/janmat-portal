@@ -40,7 +40,7 @@ const developers = [
     img: "https://via.placeholder.com/150",
     github: "https://github.com/akshat",
     linkedin: "https://linkedin.com/in/akshat",
-    email: "mailto:akshat@example.com",
+    email: "mailto:tambeakshat6@gmail.com",
     portfolio: "https: //www.linkedin.com/in/akshat-tambe-2b65a9259/",
     skills: ["Java", "Spring Boot", "C", "Database Design", "Open-Source", "Software Engineering"],
     interests: ["Backend architecture", "Cloud services", "Cybersecurity"],
@@ -53,7 +53,7 @@ const AboutDevelopers: React.FC = () => {
   }, []);
 
   return (
-    <section id="contact" className="relative min-h-screen flex items-center justify-center px-6 py-16 md:py-24">
+    <section id="contact" className="relative min-h-screen max-h-screen flex items-center justify-center px-6 py-16 md:py-24">
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -63,7 +63,7 @@ const AboutDevelopers: React.FC = () => {
         className="relative max-w-6xl mx-auto text-center z-10"
       >
         {/* Heading */}
-        <h2 className="text-4xl md:text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400">
+        <h2 className="text-4xl md:text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 line-height[1.2]">
           Meet the Developers
         </h2>
         <p className="text-lg text-gray-200 mb-16 max-w-2xl mx-auto">
