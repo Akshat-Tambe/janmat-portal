@@ -1,134 +1,137 @@
-// src/components/navigation/TopNavbar.tsx
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { Menu, X, LogOut } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
-const TopNavbar = () => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+const navLinks = [
+  { name: "Dashboard", path: "/admin/dashboard", color: "from-blue-500 to-cyan-500" },
+  { name: "Elections", path: "/admin/elections", color: "from-purple-500 to-pink-500" },
+  { name: "Create Election", path: "/admin/create-election", color: "from-green-500 to-emerald-500" },
+  { name: "Candidates", path: "/admin/candidates", color: "from-yellow-500 to-orange-500" },
+  { name: "Results", path: "/admin/results", color: "from-indigo-500 to-blue-500" },
+  { name: "Profile", path: "/admin/profile", color: "from-red-500 to-pink-500" },
+];
+
+const TopNavbar: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
-  const links = [
-    { name: "Dashboard", path: "/admin/dashboard" },
-    { name: "Elections", path: "/admin/elections" },
-    { name: "Create Election", path: "/admin/create-election" },
-    { name: "Candidates", path: "/admin/candidates" },
-    { name: "Results", path: "/admin/results" },
-    { name: "Profile", path: "/admin/profile" },
-  ];
-
   return (
-    <>
-      {/* Top Nav */}
-      <header className="bg-white shadow-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            {/* Logo / Brand */}
-            <div className="flex-shrink-0 text-2xl font-bold text-primary tracking-wide">
-              Admin Panel
-            </div>
+    <header className="sticky top-0 z-50 backdrop-blur-md bg-white/70 border-b border-gray-200 shadow-sm">
+      <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
+        {/* Brand */}
+        <Link to="/admin/dashboard" className="flex items-center gap-2">
+          <span className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-cyan-500 text-transparent bg-clip-text">
+            Admin Panel
+          </span>
+        </Link>
 
-            {/* Desktop Links */}
-            <nav className="hidden md:flex items-center space-x-6">
-              {links.map((link) => {
-                const isActive = location.pathname === link.path;
-                return (
-                  <Link
-                    key={link.name}
-                    to={link.path}
-                    className={`relative font-medium transition text-text-secondary hover:text-primary
-                      ${
-                        isActive
-                          ? "text-primary after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:bg-primary"
-                          : ""
-                      }
-                    `}
-                  >
-                    {link.name}
-                  </Link>
-                );
-              })}
-
-              <Link
-                to="/logout"
-                className="ml-4 px-4 py-1 rounded-full bg-red-100 text-danger hover:bg-red-200 transition font-medium"
+        {/* Desktop Menu */}
+        <ul className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => {
+            const isActive = location.pathname === link.path;
+            return (
+              <motion.li
+                key={link.name}
+                whileHover={{ scale: 1.1, y: -2 }}
+                className="relative font-medium cursor-pointer"
               >
-                Logout
-              </Link>
-            </nav>
+                <Link
+                  to={link.path}
+                  className={`relative transition-colors ${isActive
+                    ? "text-white font-semibold"
+                    : "text-gray-700 hover:text-white"
+                    }`}
+                >
+                  {link.name}
+                  {/* Gradient underline */}
+                  <motion.span
+                    layout
+                    className={`absolute left-0 -bottom-1 h-1 rounded-full bg-gradient-to-r ${link.color}`}
+                    initial={{ width: 0 }}
+                    animate={{ width: isActive ? "100%" : 0 }}
+                    whileHover={{ width: "100%" }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </Link>
+              </motion.li>
+            );
+          })}
+          {/* Logout button */}
+          <Link
+            to="/logout"
+            className="ml-4 flex items-center gap-2 px-4 py-2 rounded-lg 
+                       bg-gradient-to-r from-red-500 to-pink-500 
+                       text-white font-semibold shadow-md
+                       hover:shadow-lg hover:scale-105 transition-all duration-300"
+          >
+            <LogOut size={18} />
+            Logout
+          </Link>
+        </ul>
 
-            {/* Mobile Hamburger */}
-            <div className="md:hidden">
-              <button
-                onClick={() => setDrawerOpen(true)}
-                className="text-text-secondary hover:text-primary focus:outline-none"
-              >
-                <FaBars className="h-6 w-6" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
+        {/* Mobile Hamburger */}
+        <button
+          className="md:hidden text-gray-300"
+          onClick={() => setIsOpen(true)}
+        >
+          <Menu size={26} />
+        </button>
+      </nav>
 
       {/* Mobile Drawer */}
-      <div
-        className={`fixed inset-0 z-50 transition ${
-          drawerOpen ? "pointer-events-auto" : "pointer-events-none"
-        }`}
-      >
-        {/* Backdrop */}
-        <div
-          className={`absolute inset-0 bg-black transition-opacity duration-300 ${
-            drawerOpen ? "opacity-50" : "opacity-0"
-          }`}
-          onClick={() => setDrawerOpen(false)}
-        />
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ x: "-100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "-100%" }}
+            transition={{ duration: 0.4 }}
+            className="fixed top-0 left-0 h-screen w-64 bg-gradient-to-b from-gray-900 via-gray-800 to-black shadow-2xl z-[1000] p-6 flex flex-col"
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between mb-8">
+              <span className="text-lg font-bold text-blue-400">
+                Admin Panel
+              </span>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-gray-400 hover:text-white"
+              >
+                <X size={24} />
+              </button>
+            </div>
 
-        {/* Drawer */}
-        <div
-          className={`absolute top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ${
-            drawerOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
-        >
-          <div className="flex justify-between items-center px-4 py-4 border-b">
-            <span className="text-xl font-bold text-primary">Admin Panel</span>
-            <button
-              onClick={() => setDrawerOpen(false)}
-              className="text-gray-600 hover:text-primary"
-            >
-              <FaTimes className="h-6 w-6" />
-            </button>
-          </div>
-
-          <nav className="flex flex-col px-4 py-6 space-y-4">
-            {links.map((link) => {
-              const isActive = location.pathname === link.path;
-              return (
+            {/* Nav links */}
+            <nav className="flex flex-col gap-6 mt-8">
+              {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`block px-2 py-2 rounded font-medium transition ${
-                    isActive
-                      ? "bg-primary text-white"
-                      : "text-gray-700 hover:bg-gray-100"
-                  }`}
-                  onClick={() => setDrawerOpen(false)}
+                  onClick={() => setIsOpen(false)}
+                  className={`text-gray-300 text-lg font-medium hover:text-white transition ${location.pathname === link.path ? "text-white" : ""
+                    }`}
                 >
                   {link.name}
                 </Link>
-              );
-            })}
-
-            <Link
-              to="/logout"
-              className="mt-auto block px-2 py-2 rounded font-medium text-danger hover:bg-red-100"
-              onClick={() => setDrawerOpen(false)}
-            >
-              Logout
-            </Link>
-          </nav>
-        </div>
-      </div>
-    </>
+              ))}
+              {/* Logout */}
+              <Link
+                to="/logout"
+                onClick={() => setIsOpen(false)}
+                className="mt-auto flex items-center justify-center gap-2 px-4 py-2 rounded-lg 
+                           bg-gradient-to-r from-red-500 to-pink-500 
+                           text-white font-semibold shadow-md
+                           hover:shadow-lg hover:scale-105 transition-all duration-300"
+              >
+                <LogOut size={18} />
+                Logout
+              </Link>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   );
 };
 

@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { Edit, Lock } from "lucide-react"; // icons
+import { Edit, Lock } from "lucide-react";
+import Button from "../../components/common/Button";
+import EditProfileModal from "../../components/modals/EditProfileModal";
+import ChangePasswordModal from "../../components/modals/ChangePasswordModal";
 
 interface Admin {
   id: number;
@@ -15,6 +18,9 @@ interface Admin {
 }
 
 const Profile: React.FC = () => {
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isPasswordOpen, setIsPasswordOpen] = useState(false);
+
   const [admin] = useState<Admin>({
     id: 1,
     admin_name: "Rahul Sharma",
@@ -30,72 +36,84 @@ const Profile: React.FC = () => {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">
+      <h2 className="text-3xl font-bold mb-8 text-center text-white">
         Admin Profile
       </h2>
 
-      <div className="bg-white shadow-lg rounded-2xl p-6 md:p-10 transition hover:shadow-xl">
+      <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl border border-white/20 p-8 md:p-10 transition hover:shadow-2xl">
         {/* Profile Header */}
-        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 border-b pb-6">
-       <img
-  src="https://drive.google.com/thumbnail?id=1djfw37eMPkiZxpX2vzJ8t3W0xG97n6MM"
-  onError={(e) => {
-    e.currentTarget.src = "https://ui-avatars.com/api/?name=Rahul+Sharma&background=2563EB&color=fff";
-  }}
-  alt="Profile"
-  className="w-28 h-28 rounded-full border-4 border-blue-500 shadow-md"
-/>
-
+        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 border-b border-white/20 pb-6">
+          <img
+            src="https://drive.google.com/thumbnail?id=1djfw37eMPkiZxpX2vzJ8t3W0xG97n6MM"
+            onError={(e) => {
+              e.currentTarget.src =
+                "https://ui-avatars.com/api/?name=Rahul+Sharma&background=2563EB&color=fff";
+            }}
+            alt="Profile"
+            className="w-28 h-28 rounded-full border-4 border-blue-500 shadow-md"
+          />
 
           <div className="text-center sm:text-left">
-            <h3 className="text-2xl font-semibold text-gray-800">
+            <h3 className="text-2xl font-semibold text-white">
               {admin.admin_name}
             </h3>
-            <p className="text-lg text-blue-600 font-medium">
+            <p className="text-lg text-blue-400 font-medium">
               {admin.designation}
             </p>
-            <p className="text-sm text-gray-500">{admin.department}</p>
+            <p className="text-sm text-gray-300">{admin.department}</p>
           </div>
         </div>
 
         {/* Details Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6 text-gray-200">
           <div>
-            <p className="font-semibold text-gray-700">📧 Email</p>
-            <p className="text-gray-600">{admin.email}</p>
+            <p className="font-semibold text-gray-300">📧 Email</p>
+            <p>{admin.email}</p>
           </div>
           <div>
-            <p className="font-semibold text-gray-700">📞 Phone</p>
-            <p className="text-gray-600">{admin.phone_number}</p>
+            <p className="font-semibold text-gray-300">📞 Phone</p>
+            <p>{admin.phone_number}</p>
           </div>
           <div>
-            <p className="font-semibold text-gray-700">🎂 Age</p>
-            <p className="text-gray-600">{admin.age}</p>
+            <p className="font-semibold text-gray-300">🎂 Age</p>
+            <p>{admin.age}</p>
           </div>
           <div>
-            <p className="font-semibold text-gray-700">👤 Role</p>
-            <p className="text-gray-600">{admin.role}</p>
+            <p className="font-semibold text-gray-300">👤 Role</p>
+            <p>{admin.role}</p>
           </div>
           <div className="sm:col-span-2">
-            <p className="font-semibold text-gray-700">📍 Address</p>
-            <p className="text-gray-600">{admin.address}</p>
+            <p className="font-semibold text-gray-300">📍 Address</p>
+            <p>{admin.address}</p>
           </div>
           <div className="sm:col-span-2">
-            <p className="font-semibold text-gray-700">📝 Bio</p>
-            <p className="text-gray-600 leading-relaxed">{admin.bio}</p>
+            <p className="font-semibold text-gray-300">📝 Bio</p>
+            <p className="leading-relaxed">{admin.bio}</p>
           </div>
         </div>
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row justify-end gap-3 mt-8">
-          <button className="flex items-center gap-2 px-5 py-2 border rounded-lg text-gray-700 hover:bg-gray-100 transition">
+          <Button
+            variant="secondary"
+            className="flex items-center gap-2"
+            onClick={() => setIsEditOpen(true)}
+          >
             <Edit size={18} /> Edit Profile
-          </button>
-          <button className="flex items-center gap-2 px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+          </Button>
+          <Button
+            variant="primary"
+            className="flex items-center gap-2"
+            onClick={() => setIsPasswordOpen(true)}
+          >
             <Lock size={18} /> Change Password
-          </button>
+          </Button>
         </div>
       </div>
+
+      {/* Modals */}
+      <EditProfileModal isOpen={isEditOpen} onClose={() => setIsEditOpen(false)} />
+      <ChangePasswordModal isOpen={isPasswordOpen} onClose={() => setIsPasswordOpen(false)} />
     </div>
   );
 };

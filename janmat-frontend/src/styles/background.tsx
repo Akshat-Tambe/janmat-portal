@@ -2,8 +2,7 @@
 import React from "react";
 
 const Background: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const stars = Array.from({ length: 600 }); // doubled for denser feel
-
+    const stars = Array.from({ length: 200 });
     return (
         <div className="relative min-h-screen min-w-screen flex flex-col bg-gradient-to-b from-indigo-900 to-purple-900 overflow-hidden">
             {/* Floating stars */}

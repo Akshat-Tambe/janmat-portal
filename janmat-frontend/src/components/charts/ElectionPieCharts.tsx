@@ -21,24 +21,20 @@ const ElectionPieChart: React.FC<Props> = ({ data }) => {
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="bg-white shadow-card rounded-2xl p-6 hover:shadow-lg transition-shadow"
+      className="w-full h-full"
     >
-      <h2 className="text-xl font-semibold text-gray-800 mb-4">
-        🗳️ Election Status
-      </h2>
-      <ResponsiveContainer width="100%" height={320}>
+      <ResponsiveContainer width="100%" height={280}>
         <PieChart>
           <Pie
-  data={data}
-  cx="50%"
-  cy="50%"
-  outerRadius={100}
-  label={(entry) =>
-    `${entry.name} ${((entry.percent ?? 0) * 100).toFixed(0)}%`
-  }
-  dataKey="value"
->
-
+            data={data}
+            cx="50%"
+            cy="50%"
+            outerRadius={100}
+            label={(entry) =>
+              `${entry.name} ${((entry.percent ?? 0) * 100).toFixed(0)}%`
+            }
+            dataKey="value"
+          >
             {data.map((_, index) => (
               <Cell
                 key={`cell-${index}`}

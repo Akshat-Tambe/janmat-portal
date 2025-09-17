@@ -3,7 +3,7 @@ import Button from "../../components/common/Button";
 import Input from "../../components/common/Input";
 import DatePicker from "react-datepicker";
 import { addMinutes } from "date-fns";
-import Modal from "../../components/common/Modal";
+import Modal from "../../components/common/Modal"; // ✅ Import Modal
 import "react-datepicker/dist/react-datepicker.css";
 
 const CreateElection = () => {
@@ -12,7 +12,6 @@ const CreateElection = () => {
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [endTime, setEndTime] = useState<Date | null>(null);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-
   const [modalOpen, setModalOpen] = useState<"start" | "end" | null>(null);
 
   const validate = () => {
@@ -44,60 +43,66 @@ const CreateElection = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto my-8 bg-white rounded-2xl shadow-lg p-8 space-y-8">
-      <h1 className="text-3xl font-bold text-gray-900 text-center">
-        Create New Election
-      </h1>
+    <div className="max-w-3xl mx-auto my-10">
+      <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl border border-white/20 p-8 space-y-8">
+        <h1 className="text-3xl font-bold text-center text-white">
+          🗳️ Create New Election
+        </h1>
 
-      <div className="space-y-4">
-        <Input
-          label="Election Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Enter election title"
-          error={errors.title}
-        />
+        <div className="space-y-4">
+          <Input
+            label="Election Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Enter election title"
+            error={errors.title}
+          />
 
-        <Input
-          label="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Write a short description"
-          error={errors.description}
-          textarea
-        />
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="flex flex-col">
-          <label className="mb-2 font-medium text-gray-700">Start Time</label>
-          <Button variant="secondary" onClick={() => setModalOpen("start")}>
-            {startTime ? startTime.toLocaleString() : "Select Start Time"}
-          </Button>
-          {errors.startTime && (
-            <span className="text-red-500 text-sm mt-1">{errors.startTime}</span>
-          )}
+          <Input
+            label="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Write a short description"
+            error={errors.description}
+            textarea
+          />
         </div>
 
-        <div className="flex flex-col">
-          <label className="mb-2 font-medium text-gray-700">End Time</label>
-          <Button variant="secondary" onClick={() => setModalOpen("end")}>
-            {endTime ? endTime.toLocaleString() : "Select End Time"}
-          </Button>
-          {errors.endTime && (
-            <span className="text-red-500 text-sm mt-1">{errors.endTime}</span>
-          )}
-        </div>
-      </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-col">
+            <label className="mb-2 font-medium text-gray-200">Start Time</label>
+            <Button variant="secondary" onClick={() => setModalOpen("start")}>
+              {startTime ? startTime.toLocaleString() : "Select Start Time"}
+            </Button>
+            {errors.startTime && (
+              <span className="text-red-400 text-sm mt-1">
+                {errors.startTime}
+              </span>
+            )}
+          </div>
 
-      <div className="flex justify-end mt-6">
-        <Button
-          variant="primary"
-          onClick={handleSubmit}
-          className="px-6 py-3 text-lg"
-        >
-          Create Election
-        </Button>
+          <div className="flex flex-col">
+            <label className="mb-2 font-medium text-gray-200">End Time</label>
+            <Button variant="secondary" onClick={() => setModalOpen("end")}>
+              {endTime ? endTime.toLocaleString() : "Select End Time"}
+            </Button>
+            {errors.endTime && (
+              <span className="text-red-400 text-sm mt-1">
+                {errors.endTime}
+              </span>
+            )}
+          </div>
+        </div>
+
+        <div className="flex justify-end mt-6">
+          <Button
+            variant="primary"
+            onClick={handleSubmit}
+            className="px-6 py-3 text-lg"
+          >
+            Create Election
+          </Button>
+        </div>
       </div>
 
       {/* Modal for Date/Time Picker */}
@@ -108,7 +113,7 @@ const CreateElection = () => {
         onConfirm={() => setModalOpen(null)}
         confirmText="Confirm"
       >
-        <div className="max-h-[300px] overflow-auto p-2 border rounded-lg">
+        <div className="max-h-[300px] overflow-auto p-2">
           <DatePicker
             selected={modalOpen === "start" ? startTime : endTime}
             onChange={(date) => {
@@ -127,20 +132,20 @@ const CreateElection = () => {
                   : new Date()
             }
             inline
-            calendarClassName="rounded-lg shadow-lg border border-gray-200"
+            calendarClassName="rounded-lg shadow-lg border border-white/20 bg-gray-900 text-white"
             dayClassName={(date) =>
               date?.toDateString() ===
                 (modalOpen === "start" ? startTime : endTime)?.toDateString()
-                ? "bg-blue-500 text-white rounded-full"
-                : "text-gray-800"
+                ? "bg-blue-600 text-white rounded-full"
+                : "text-gray-300 hover:bg-gray-700/70 rounded-full"
             }
             timeClassName={(time) =>
               (modalOpen === "start" ? startTime : endTime)?.getHours() ===
                 time.getHours() &&
                 (modalOpen === "start" ? startTime : endTime)?.getMinutes() ===
                 time.getMinutes()
-                ? "bg-blue-500 text-white rounded"
-                : ""
+                ? "bg-blue-600 text-white rounded"
+                : "text-gray-300 hover:bg-gray-700/70 rounded"
             }
           />
         </div>
