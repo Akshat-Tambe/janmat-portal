@@ -61,27 +61,34 @@ export default function LoginPage() {
 
     setErrors(newErrors);
 
-    if (Object.keys(newErrors).length === 0) {
-      setTimeout(() => {
-        alert(`Login successful! Welcome back to JanMat as ${formData.type}!`);
-        setIsSubmitting(false);
-        setFormData({
-          email: '',
-          password: '',
-          type: ''
-        });
-      }, 2000);
-    } else {
-      setIsSubmitting(false);
+   if (Object.keys(newErrors).length === 0) {
+  setTimeout(() => {
+    if (formData.type === "voter") {
+      navigate("/voterdashboard");
+    } else if (formData.type === "candidate") {
+      navigate("/candidate-dashboard");
+    } else if (formData.type === "admin") {
+      navigate("/admin-dashboard");
     }
-  };
+
+    setIsSubmitting(false);
+    setFormData({
+      email: '',
+      password: '',
+      type: ''
+    });
+  }, 2000);
+} else {
+  setIsSubmitting(false);
+}
+  }
 
   const handleSignInClick = () => {
   navigate('/RegisterPage');
 };
 
   const handleForgotPassword = () => {
-    alert('Redirecting to forgot password page...');
+   navigate('/ForgotPassword');
   };
 
   return (

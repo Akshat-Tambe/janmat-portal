@@ -83,6 +83,7 @@ export default function RegisterPage() {
     if (Object.keys(newErrors).length === 0) {
       setTimeout(() => {
         alert('Registration successful! Welcome to JanMat!');
+      
         setIsSubmitting(false);
         setFormData({
           name: '',
