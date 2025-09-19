@@ -4,9 +4,8 @@ import TrendLineChart from "../../components/charts/TrendLineChart";
 import VoterBarChart from "../../components/charts/VoterBarChart";
 
 const Results: React.FC = () => {
-  // ✅ Static data for now (replace later with API)
   const electionResults = [
-    { name: "John Doe", value: 123 }, // Pie chart needs {name, value}
+    { name: "John Doe", value: 123 },
     { name: "Jane Smith", value: 98 },
     { name: "Alex Johnson", value: 76 },
     { name: "Emily Davis", value: 54 },
@@ -29,50 +28,71 @@ const Results: React.FC = () => {
   ];
 
   return (
-    <div className="p-6 space-y-8">
-      <h1 className="text-2xl font-bold">📊 Election Results</h1>
+    <div className="p-6">
+      <h1 className="text-3xl font-bold text-white mb-8">📊 Election Results</h1>
 
-      {/* Grid for charts */}
+      {/* Charts Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <ElectionPieChart data={electionResults} />
-        <VoterBarChart data={voterParticipation} />
-        <TrendLineChart data={electionTrends} />
+        <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-4 border border-white/20">
+          <h2 className="text-xl font-semibold text-white mb-4">
+            Candidate Votes
+          </h2>
+          <ElectionPieChart data={electionResults} />
+        </div>
+
+        <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-4 border border-white/20">
+          <h2 className="text-xl font-semibold text-white mb-4">
+            Voter Participation
+          </h2>
+          <VoterBarChart data={voterParticipation} />
+        </div>
+
+        <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-4 border border-white/20 md:col-span-2 lg:col-span-1">
+          <h2 className="text-xl font-semibold text-white mb-4">
+            Election Trends
+          </h2>
+          <TrendLineChart data={electionTrends} />
+        </div>
       </div>
 
       {/* Results Table */}
-      <div className="bg-white shadow-md rounded-lg p-6 mt-8">
-        <h2 className="text-xl font-semibold mb-4">🗳️ Candidate Results</h2>
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="bg-gray-100 text-left">
-              <th className="p-3 border">Candidate</th>
-              <th className="p-3 border">Party</th>
-              <th className="p-3 border">Votes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="p-3 border">John Doe</td>
-              <td className="p-3 border">Party A</td>
-              <td className="p-3 border">123</td>
-            </tr>
-            <tr>
-              <td className="p-3 border">Jane Smith</td>
-              <td className="p-3 border">Party B</td>
-              <td className="p-3 border">98</td>
-            </tr>
-            <tr>
-              <td className="p-3 border">Alex Johnson</td>
-              <td className="p-3 border">Party C</td>
-              <td className="p-3 border">76</td>
-            </tr>
-            <tr>
-              <td className="p-3 border">Emily Davis</td>
-              <td className="p-3 border">Party D</td>
-              <td className="p-3 border">54</td>
-            </tr>
-          </tbody>
-        </table>
+      <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-lg border border-white/20 p-6 mt-8">
+        <h2 className="text-2xl font-semibold text-white mb-6">
+          🗳️ Candidate Results
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse text-white">
+            <thead>
+              <tr className="bg-white/20">
+                <th className="p-3 text-left font-semibold">Candidate</th>
+                <th className="p-3 text-left font-semibold">Party</th>
+                <th className="p-3 text-left font-semibold">Votes</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/20">
+              <tr className="hover:bg-white/10 transition">
+                <td className="p-3">John Doe</td>
+                <td className="p-3 text-gray-300">Party A</td>
+                <td className="p-3 font-semibold text-blue-400">123</td>
+              </tr>
+              <tr className="hover:bg-white/10 transition">
+                <td className="p-3">Jane Smith</td>
+                <td className="p-3 text-gray-300">Party B</td>
+                <td className="p-3 font-semibold text-pink-400">98</td>
+              </tr>
+              <tr className="hover:bg-white/10 transition">
+                <td className="p-3">Alex Johnson</td>
+                <td className="p-3 text-gray-300">Party C</td>
+                <td className="p-3 font-semibold text-green-400">76</td>
+              </tr>
+              <tr className="hover:bg-white/10 transition">
+                <td className="p-3">Emily Davis</td>
+                <td className="p-3 text-gray-300">Party D</td>
+                <td className="p-3 font-semibold text-yellow-400">54</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

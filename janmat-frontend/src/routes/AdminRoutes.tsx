@@ -6,13 +6,15 @@ import CreateElection from "../pages/admin/CreateElection";
 import Candidates from "../pages/admin/Candidate";
 import Results from "../pages/admin/Results";
 import Profile from "../pages/admin/Profile";
+import AdminHome from "../pages/admin/AdminHome";
 
 const AdminRoutes = () => {
   const routes = useRoutes([
     {
       path: "/",
-      element: <AdminLayout />, 
+      element: <AdminLayout />,
       children: [
+        { index: true, element: <AdminHome /> }, 
         { path: "dashboard", element: <Dashboard /> },
         { path: "elections", element: <Elections /> },
         { path: "create-election", element: <CreateElection /> },
@@ -20,6 +22,7 @@ const AdminRoutes = () => {
         { path: "results", element: <Results /> },
         { path: "profile", element: <Profile /> },
       ],
+
     },
   ]);
 

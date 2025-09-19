@@ -6,6 +6,7 @@ import Dialog from "../common/Dialog";
 import Privacy from "../common/Privacy"
 import Terms from "../common/Terms"
 import { Link } from "react-router-dom";
+import AboutContent from "../common/About";
 
 
 const Footer: React.FC = () => {
@@ -14,6 +15,9 @@ const Footer: React.FC = () => {
     // Dialog state
     const [openPrivacy, setOpenPrivacy] = useState(false);
     const [openTerms, setOpenTerms] = useState(false);
+
+    const [openAbout, setOpenAbout] = useState(false);
+
 
     return (
         <footer className="relative bg-transparent text-gray-300 py-16 px-6 overflow-hidden">
@@ -59,10 +63,11 @@ const Footer: React.FC = () => {
 
                 {/* Navigation Links */}
                 <div className="flex flex-wrap justify-center md:justify-start gap-6 text-sm">
-                    <a href="#about" className="relative group">
+                    <button onClick={() => setOpenAbout(true)} className="relative group">
                         <span className="text-gray-400 group-hover:text-white transition">About</span>
                         <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gradient-to-r from-blue-500 to-indigo-500 group-hover:w-full transition-all"></span>
-                    </a>
+                    </button>
+
                     <Link to="/contact" className="relative group">
                         <span className="text-gray-400 group-hover:text-white transition">Contact</span>
                         <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gradient-to-r from-blue-500 to-indigo-500 group-hover:w-full transition-all"></span>
@@ -97,6 +102,13 @@ const Footer: React.FC = () => {
             </motion.div>
 
             {/* Dialogs */}
+            <Dialog
+                open={openAbout}
+                onClose={() => setOpenAbout(false)}
+                title="About Jan-Mat"
+                content={<AboutContent />}
+            />
+
             <Dialog
                 open={openPrivacy}
                 onClose={() => setOpenPrivacy(false)}
